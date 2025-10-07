@@ -1,16 +1,17 @@
+using bloggin_plataform_api.Data;
 using bloggin_plataform_api.Models;
-using Microsoft.EntityFrameworkCore;
 using bloggin_plataform_api.Interfaces;
 
 namespace bloggin_plataform_api.Repositories
 {
-    public class UserRepository(DbContext context) : IUserRepository
+    public class UserRepository(BlogDbContext context) : IUserRepository
     {
-        private readonly DbContext _context = context;
+        private readonly BlogDbContext _context = context;
 
-        public Task<User> AddAsync(User user)
+        public async Task<User> AddAsync(User user)
         {
-            throw new NotImplementedException();
+            await _context.AddAsync(user);
+            return user;
         }
 
         public Task<bool> DeleteAsync(int id)
