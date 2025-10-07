@@ -6,8 +6,8 @@ namespace bloggin_plataform_api.Interfaces
     {
         Task<bool> DeleteAsync(int id);
 
-        Task<UserDTO> AddAsync(UserDTO user);
-        Task<UserDTO> UpdateAsync(UserDTO user);
+        Task<UserResponseDTO> AddAsync(UserDTO user);
+        Task<UserResponseDTO> UpdateAsync(UserDTO user);
 
         Task<UserResponseDTO?> GetByIdAsync(int id);
         Task<IEnumerable<UserResponseDTO>> GetUsersAsync();
