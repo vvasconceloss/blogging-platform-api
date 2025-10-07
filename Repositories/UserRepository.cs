@@ -11,6 +11,8 @@ namespace bloggin_plataform_api.Repositories
         public async Task<User> AddAsync(User user)
         {
             await _context.AddAsync(user);
+            await _context.SaveChangesAsync();
+            
             return user;
         }
 
