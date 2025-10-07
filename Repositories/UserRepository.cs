@@ -8,32 +8,12 @@ namespace bloggin_plataform_api.Repositories
     {
         private readonly DbContext _context = context;
 
-        public bool Add(User user)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<User> AddAsync(User user)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<bool> DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<User> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public User GetById(int id)
         {
             throw new NotImplementedException();
         }
@@ -44,11 +24,6 @@ namespace bloggin_plataform_api.Repositories
         }
 
         public Task<IEnumerable<User>> GetUsersAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public User Update(User user)
         {
             throw new NotImplementedException();
         }
