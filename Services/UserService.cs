@@ -1,15 +1,31 @@
+using bloggin_plataform_api.Models;
 using bloggin_plataform_api.DTOs.User;
 using bloggin_plataform_api.Interfaces;
 
 namespace bloggin_plataform_api.Services
 {
-    public class UserService(IUserRepository repo) : IUserService
+    public class UserService(IUserRepository _repo) : IUserService
     {
-        private readonly IUserRepository _userRepository = repo;
+        private readonly IUserRepository _userRepository = _repo;
 
-        public Task<UserDTO> AddAsync(UserDTO user)
+        public async Task<UserResponseDTO> AddAsync(UserDTO user)
         {
-            throw new NotImplementedException();
+            var newUser = new User
+            {
+                Username = user.Username,
+                EmailAdress = user.EmailAddress,
+                PasswordHash = user.Password,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+            };
+
+            var userCreated = await _userRepository.AddAsync(newUser);
+            
+            return new UserResponseDTO
+            {
+                Username = userCreated.Username,
+                EmailAdress = userCreated.EmailAdress,
+            };
         }
 
         public Task<bool> DeleteAsync(int id)
@@ -27,7 +43,7 @@ namespace bloggin_plataform_api.Services
             throw new NotImplementedException();
         }
 
-        public Task<UserDTO> UpdateAsync(UserDTO user)
+        public Task<UserResponseDTO> UpdateAsync(UserDTO user)
         {
             throw new NotImplementedException();
         }
