@@ -14,7 +14,7 @@ namespace bloggin_plataform_api.Services
             {
                 Username = user.Username,
                 EmailAdress = user.EmailAddress,
-                PasswordHash = user.Password,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.Password),
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
             };
