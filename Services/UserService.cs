@@ -19,6 +19,16 @@ namespace bloggin_plataform_api.Services
             if (!result.IsValid)
                 throw new ValidationException(result.ToDictionary());
 
+            if (await _userRepository.GetByEmailAsync(user.EmailAddress) != null)
+                throw new ValidationException(new Dictionary<string, string[]>{
+                    { "EmailAddress", new []{"The email address has already been registered."} }
+                });
+
+            if (await _userRepository.GetByUsernameAsync(user.Username) != null)
+                throw new ValidationException(new Dictionary<string, string[]>{
+                    { "Username", new []{"The username '" + user.Username + "' has already been registered."} }
+                });
+
             var newUser = new User
             {
                 Username = user.Username,
