@@ -17,6 +17,9 @@ namespace bloggin_plataform_api.Validators
             RuleFor(user => user.Password)
                 .NotNull().NotEmpty().WithMessage("The password is required.")
                 .MinimumLength(8).WithMessage("The password must be 8 characters or longer.");
+
+            RuleFor(user => user.ConfirmPassword)
+                .Equal(user => user.Password).WithMessage("The passwords don't match");
         }
     }
 }
