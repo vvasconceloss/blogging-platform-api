@@ -19,7 +19,6 @@ namespace bloggin_plataform_api.Middlewares
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Unhandled exception caught by middleware");
                 context.Response.ContentType = "application/json";
 
                 var (statusCode, type, title) = MapException(exception);
@@ -38,6 +37,19 @@ namespace bloggin_plataform_api.Middlewares
 
                 if (exception is ValidationException validationException && validationException.Errors?.Any() == true)
                     problemDetails.Extensions["errors"] = validationException.Errors;
+
+                switch (exception)
+                {
+                    case ValidationException:
+                        _logger.LogWarning("Validation Error: {0}", exception.Message);
+                        break;
+                    case UnauthorizedAccessException:
+                        _logger.LogWarning("Unauthorized Error: {0}", exception.Message);
+                        break;
+                    default:
+                        _logger.LogError(exception, "Unhandled Exception");
+                        break;
+                }
 
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
                 var json = JsonSerializer.Serialize(problemDetails, options);
