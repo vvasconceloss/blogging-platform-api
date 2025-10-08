@@ -1,6 +1,9 @@
+using FluentValidation;
 using bloggin_plataform_api.Data;
 using Microsoft.EntityFrameworkCore;
 using bloggin_plataform_api.Services;
+using bloggin_plataform_api.DTOs.User;
+using bloggin_plataform_api.Validators;
 using bloggin_plataform_api.Interfaces;
 using bloggin_plataform_api.Middlewares;
 using bloggin_plataform_api.Repositories;
@@ -17,8 +20,9 @@ builder.Services.AddDbContext<BlogDbContext>(options =>
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IValidator<UserDTO>, UserValidator>();
 
 var app = builder.Build();
 
