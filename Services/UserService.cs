@@ -1,6 +1,9 @@
+using System.Net.Mail;
 using bloggin_plataform_api.Models;
 using bloggin_plataform_api.DTOs.User;
 using bloggin_plataform_api.Interfaces;
+using bloggin_plataform_api.Exceptions;
+using bloggin_plataform_api.Validators;
 
 namespace bloggin_plataform_api.Services
 {
@@ -10,6 +13,12 @@ namespace bloggin_plataform_api.Services
 
         public async Task<UserResponseDTO> AddAsync(UserDTO user)
         {
+            var validator = new UserValidator();
+            var result = await validator.ValidateAsync(user);
+
+            if (!result.IsValid)
+                throw new ValidationException(result.ToDictionary());
+
             var newUser = new User
             {
                 Username = user.Username,
@@ -20,14 +29,14 @@ namespace bloggin_plataform_api.Services
             };
 
             var userCreated = await _userRepository.AddAsync(newUser);
-            
+
             return new UserResponseDTO
             {
                 Username = userCreated.Username,
                 EmailAdress = userCreated.EmailAdress,
             };
         }
-
+        
         public Task<bool> DeleteAsync(int id)
         {
             throw new NotImplementedException();
