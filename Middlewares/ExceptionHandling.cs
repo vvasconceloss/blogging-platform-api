@@ -20,15 +20,16 @@ namespace bloggin_plataform_api.Middlewares
                 _logger.LogError(exception, "Unhandled exception caught by middleware");
                 context.Response.ContentType = "application/json";
 
-                var (statusCode, title) = MapException(exception);
+                var (statusCode, type, title) = MapException(exception);
 
                 context.Response.StatusCode = (int)statusCode;
 
                 var problemPayload = new
                 {
+                    statusCode = context.Response.StatusCode,
+                    type,
                     title,
-                    detail = exception.Message,
-                    status = context.Response.StatusCode,
+                    details = exception.Message,
                 };
 
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
@@ -38,14 +39,14 @@ namespace bloggin_plataform_api.Middlewares
             }
         }
 
-        private static (HttpStatusCode statusCode, string title) MapException(Exception exception)
+        private static (HttpStatusCode statusCode, string type, string title) MapException(Exception exception)
         {
             return exception switch
             {
-                NotFoundException => (HttpStatusCode.NotFound, "Resource not found"),
-                ValidationException => (HttpStatusCode.BadRequest, "Validation failed"),
-                UnauthorizedAccessException => (HttpStatusCode.Unauthorized, "Unauthorized"),
-                _ => (HttpStatusCode.InternalServerError, "An unexpected error occurred"),
+                NotFoundException => (HttpStatusCode.NotFound, "NotFound", "Failed to find this resource"),
+                ValidationException => (HttpStatusCode.BadRequest, "BadRequest", "There was an error in validating the data."),
+                UnauthorizedAccessException => (HttpStatusCode.Unauthorized, "Unauthorized", "Unauthorized access to this resource"),
+                _ => (HttpStatusCode.InternalServerError, "InternalServer", "An unexpected error has occurred"),
             };
         }
     }
