@@ -1,5 +1,7 @@
 using System.Net;
 using System.Text.Json;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using bloggin_plataform_api.Exceptions;
 
 namespace bloggin_plataform_api.Middlewares
@@ -24,16 +26,21 @@ namespace bloggin_plataform_api.Middlewares
 
                 context.Response.StatusCode = (int)statusCode;
 
-                var problemPayload = new
+                var problemDetails = new ProblemDetails
                 {
-                    statusCode = context.Response.StatusCode,
-                    type,
-                    title,
-                    details = exception.Message,
+                    Title = title,
+                    Detail = exception.Message,
+                    Instance = context.Request.Path,
+                    Status = context.Response.StatusCode
                 };
 
+                problemDetails.Extensions["traceId"] = context.TraceIdentifier ?? Activity.Current?.Id;
+
+                if (exception is ValidationException validationException && validationException.Errors?.Any() == true)
+                    problemDetails.Extensions["errors"] = validationException.Errors;
+
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-                var json = JsonSerializer.Serialize(problemPayload, options);
+                var json = JsonSerializer.Serialize(problemDetails, options);
 
                 await context.Response.WriteAsync(json);
             }
