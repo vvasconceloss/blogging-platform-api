@@ -2,6 +2,7 @@ using bloggin_plataform_api.Data;
 using Microsoft.EntityFrameworkCore;
 using bloggin_plataform_api.Services;
 using bloggin_plataform_api.Interfaces;
+using bloggin_plataform_api.Middlewares;
 using bloggin_plataform_api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 app.Run();
