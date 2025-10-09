@@ -42,8 +42,9 @@ namespace bloggin_plataform_api.Services
 
             return new UserResponseDTO
             {
+                Id = userCreated.Id,
                 Username = userCreated.Username,
-                EmailAdress = userCreated.EmailAddress,
+                EmailAddress = userCreated.EmailAddress,
             };
         }
         
@@ -59,17 +60,13 @@ namespace bloggin_plataform_api.Services
             
             return new UserResponseDTO
             {
+                Id = user.Id,
                 Username = user.Username,
-                EmailAdress = user.EmailAddress
+                EmailAddress = user.EmailAddress
             };
         }
 
         public Task<IEnumerable<UserResponseDTO>> GetUsersAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<UserResponseDTO> UpdateAsync(UserDTO user)
         {
             throw new NotImplementedException();
         }

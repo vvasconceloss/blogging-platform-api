@@ -32,14 +32,9 @@ namespace bloggin_plataform_api.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<User> UpdateAsync(User user)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<User?> GetByEmailAsync(string email)
         {
-            return _context.Users.Where(user => user.EmailAdress == email).FirstOrDefaultAsync();
+            return _context.Users.Where(user => user.EmailAddress == email).FirstOrDefaultAsync();
         }
 
         public Task<User?> GetByUsernameAsync(string username)

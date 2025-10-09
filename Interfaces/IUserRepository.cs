@@ -6,7 +6,6 @@ namespace bloggin_plataform_api.Interfaces
     {
         Task<bool> DeleteAsync(int id);
         Task<User> AddAsync(User user);
-        Task<User> UpdateAsync(User user);
 
         Task<User?> GetByIdAsync(int id);
         Task<IEnumerable<User>> GetUsersAsync();
