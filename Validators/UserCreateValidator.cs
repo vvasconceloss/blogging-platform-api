@@ -3,9 +3,9 @@ using bloggin_plataform_api.DTOs.User;
 
 namespace bloggin_plataform_api.Validators
 {
-    public class UserValidator : AbstractValidator<UserDTO>
+    public class UserCreateValidator : AbstractValidator<UserCreateDTO>
     {
-        public UserValidator()
+        public UserCreateValidator()
         {
             RuleFor(user => user.Username)
                 .NotNull().NotEmpty().WithMessage("The username is required.");
