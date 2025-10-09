@@ -1,7 +1,7 @@
 using bloggin_plataform_api.Data;
 using bloggin_plataform_api.Models;
-using bloggin_plataform_api.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using bloggin_plataform_api.Interfaces;
 
 namespace bloggin_plataform_api.Repositories
 {
@@ -27,9 +27,9 @@ namespace bloggin_plataform_api.Repositories
             return _context.Users.Where(user => user.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task<IEnumerable<User>> GetUsersAsync()
+        public async Task<ICollection<User>> GetUsersAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Users.OrderBy(user => user.Id).ToListAsync();
         }
 
         public Task<User?> GetByEmailAsync(string email)
