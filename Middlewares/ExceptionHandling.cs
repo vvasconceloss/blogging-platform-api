@@ -41,10 +41,13 @@ namespace bloggin_plataform_api.Middlewares
                 switch (exception)
                 {
                     case ValidationException:
-                        _logger.LogWarning("Validation Error: {0}", exception.Message);
+                        _logger.LogWarning("Validation Error: {Message}", exception.Message);
                         break;
                     case UnauthorizedAccessException:
-                        _logger.LogWarning("Unauthorized Error: {0}", exception.Message);
+                        _logger.LogWarning("Unauthorized Error: {Message}", exception.Message);
+                        break;
+                    case NotFoundException:
+                        _logger.LogWarning("Not Found Error: {Message}", exception.Message);
                         break;
                     default:
                         _logger.LogError(exception, "Unhandled Exception");
