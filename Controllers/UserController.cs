@@ -31,5 +31,13 @@ namespace bloggin_plataform_api.Controllers
         {
             return Ok(await _userService.GetUsersAsync());
         }
+
+        [HttpDelete]
+        [Route("user/delete/{id}")]
+        public async Task<ActionResult> DeleteUserById(int id)
+        {
+            await _userService.DeleteAsync(id);
+            return NoContent();
+        }
     }
 }
