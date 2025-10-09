@@ -32,7 +32,7 @@ namespace bloggin_plataform_api.Services
             var newUser = new User
             {
                 Username = user.Username,
-                EmailAdress = user.EmailAddress,
+                EmailAddress = user.EmailAddress,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.Password),
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
@@ -43,7 +43,7 @@ namespace bloggin_plataform_api.Services
             return new UserResponseDTO
             {
                 Username = userCreated.Username,
-                EmailAdress = userCreated.EmailAdress,
+                EmailAdress = userCreated.EmailAddress,
             };
         }
         
@@ -60,7 +60,7 @@ namespace bloggin_plataform_api.Services
             return new UserResponseDTO
             {
                 Username = user.Username,
-                EmailAdress = user.EmailAdress
+                EmailAdress = user.EmailAddress
             };
         }
 
