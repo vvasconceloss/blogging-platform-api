@@ -9,6 +9,6 @@ namespace bloggin_plataform_api.Interfaces
         Task<UserResponseDTO> AddAsync(UserCreateDTO user);
 
         Task<UserResponseDTO?> GetByIdAsync(int id);
-        Task<IEnumerable<UserResponseDTO>> GetUsersAsync();
+        Task<ICollection<UserResponseDTO>> GetUsersAsync();
     }
 }

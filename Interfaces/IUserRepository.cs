@@ -8,7 +8,7 @@ namespace bloggin_plataform_api.Interfaces
         Task<User> AddAsync(User user);
 
         Task<User?> GetByIdAsync(int id);
-        Task<IEnumerable<User>> GetUsersAsync();
+        Task<ICollection<User>> GetUsersAsync();
         Task<User?> GetByEmailAsync(string email);
         Task<User?> GetByUsernameAsync(string username);
     }
