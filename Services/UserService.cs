@@ -1,4 +1,3 @@
-using System.Net.Mail;
 using bloggin_plataform_api.Models;
 using bloggin_plataform_api.DTOs.User;
 using bloggin_plataform_api.Interfaces;
@@ -50,9 +49,15 @@ namespace bloggin_plataform_api.Services
             };
         }
         
-        public Task<bool> DeleteAsync(int id)
+        public async Task<string> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            if (id < 1)
+                throw new ValidationException("The user ID was not provided");
+
+            var user = await _userRepository.GetByIdAsync(id)
+                ?? throw new NotFoundException("The user with the Id '" + id + "' was not found");
+
+            return await _userRepository.DeleteAsync(id) ? "User successfully deleted" : "Failed to delete user";
         }
 
         public async Task<UserResponseDTO?> GetByIdAsync(int id)

@@ -17,9 +17,10 @@ namespace bloggin_plataform_api.Repositories
             return user;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            int successDelete = await _context.Users.Where(user => user.Id == id).ExecuteDeleteAsync();
+            return successDelete > 0;
         }
 
         public Task<User?> GetByIdAsync(int id)
