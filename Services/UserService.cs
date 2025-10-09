@@ -11,9 +11,9 @@ namespace bloggin_plataform_api.Services
     {
         private readonly IUserRepository _userRepository = _repo;
 
-        public async Task<UserResponseDTO> AddAsync(UserDTO user)
+        public async Task<UserResponseDTO> AddAsync(UserCreateDTO user)
         {
-            var validator = new UserValidator();
+            var validator = new UserCreateValidator();
             var result = await validator.ValidateAsync(user);
 
             if (!result.IsValid)
@@ -45,6 +45,8 @@ namespace bloggin_plataform_api.Services
                 Id = userCreated.Id,
                 Username = userCreated.Username,
                 EmailAddress = userCreated.EmailAddress,
+                CreatedAt = userCreated.CreatedAt,
+                UpdatedAt = userCreated.UpdatedAt
             };
         }
         
@@ -62,7 +64,9 @@ namespace bloggin_plataform_api.Services
             {
                 Id = user.Id,
                 Username = user.Username,
-                EmailAddress = user.EmailAddress
+                EmailAddress = user.EmailAddress,
+                CreatedAt = user.CreatedAt,
+                UpdatedAt = user.UpdatedAt
             };
         }
 
