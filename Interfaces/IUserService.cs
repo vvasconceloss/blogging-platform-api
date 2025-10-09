@@ -4,11 +4,9 @@ namespace bloggin_plataform_api.Interfaces
 {
     public interface IUserService
     {
-        Task<bool> DeleteAsync(int id);
-
         Task<UserResponseDTO> AddAsync(UserCreateDTO user);
-
         Task<UserResponseDTO?> GetByIdAsync(int id);
         Task<ICollection<UserResponseDTO>> GetUsersAsync();
+        Task<string> DeleteAsync(int id);
     }
 }

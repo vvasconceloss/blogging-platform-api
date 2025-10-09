@@ -4,12 +4,11 @@ namespace bloggin_plataform_api.Interfaces
 {
     public interface IUserRepository
     {
-        Task<bool> DeleteAsync(int id);
         Task<User> AddAsync(User user);
-
         Task<User?> GetByIdAsync(int id);
         Task<ICollection<User>> GetUsersAsync();
         Task<User?> GetByEmailAsync(string email);
         Task<User?> GetByUsernameAsync(string username);
+        Task<bool> DeleteAsync(int id);
     }
 }
