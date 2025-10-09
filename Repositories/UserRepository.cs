@@ -24,7 +24,7 @@ namespace bloggin_plataform_api.Repositories
 
         public Task<User?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return _context.Users.Where(user => user.Id == id).FirstOrDefaultAsync();
         }
 
         public Task<IEnumerable<User>> GetUsersAsync()

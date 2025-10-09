@@ -52,9 +52,16 @@ namespace bloggin_plataform_api.Services
             throw new NotImplementedException();
         }
 
-        public Task<UserResponseDTO?> GetByIdAsync(int id)
+        public async Task<UserResponseDTO?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetByIdAsync(id) 
+                ?? throw new NotFoundException("The user with the Id '" + id + "' was not found");
+            
+            return new UserResponseDTO
+            {
+                Username = user.Username,
+                EmailAdress = user.EmailAdress
+            };
         }
 
         public Task<IEnumerable<UserResponseDTO>> GetUsersAsync()
