@@ -11,9 +11,9 @@ namespace bloggin_plataform_api.Controllers
 
         [HttpPost]
         [Route("user/create")]
-        public async Task<ActionResult> AddUser(UserDTO userDTO)
+        public async Task<ActionResult> AddUser(UserCreateDTO createUser)
         {
-            var user = await _userService.AddAsync(userDTO);
+            var user = await _userService.AddAsync(createUser);
             return Ok(user);
         }
         
