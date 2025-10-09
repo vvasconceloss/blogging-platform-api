@@ -16,13 +16,20 @@ namespace bloggin_plataform_api.Controllers
             var user = await _userService.AddAsync(createUser);
             return Ok(user);
         }
-        
+
         [HttpGet]
         [Route("user/{id}")]
         public async Task<ActionResult> GetUserById(int id)
         {
             var user = await _userService.GetByIdAsync(id);
             return Ok(user);
+        }
+
+        [HttpGet]
+        [Route("users/")]
+        public async Task<ActionResult> GetUsers()
+        {
+            return Ok(await _userService.GetUsersAsync());
         }
     }
 }
