@@ -1,6 +1,6 @@
 namespace bloggin_plataform_api.DTOs.User
 {
-    public class UserDTO
+    public class UserCreateDTO
     {
         public required string Username { get; set; }
         public required string Password { get; set; }
