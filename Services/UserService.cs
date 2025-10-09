@@ -70,9 +70,19 @@ namespace bloggin_plataform_api.Services
             };
         }
 
-        public Task<IEnumerable<UserResponseDTO>> GetUsersAsync()
+        public async Task<ICollection<UserResponseDTO>> GetUsersAsync()
         {
-            throw new NotImplementedException();
+            var users = await _userRepository.GetUsersAsync();
+            var usersResponseDTO = users.Select(user => new UserResponseDTO
+            {
+                Id = user.Id,
+                Username = user.Username,
+                EmailAddress = user.EmailAddress,
+                CreatedAt = user.CreatedAt,
+                UpdatedAt = user.UpdatedAt
+            }).ToList();
+
+            return usersResponseDTO;
         }
     }
 }
