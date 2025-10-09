@@ -22,7 +22,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IValidator<UserDTO>, UserValidator>();
+builder.Services.AddScoped<IValidator<UserCreateDTO>, UserCreateValidator>();
 
 var app = builder.Build();
 
